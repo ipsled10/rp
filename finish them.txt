@@ -1,0 +1,5 @@
+http://dailyjs.com/js101.html
+http://htmldog.com/guides/javascript/advanced/
+http://www.javascriptkit.com/javatutors/
+https://developer.mozilla.org/en/learn/javascript
+http://ejohn.org/apps/learn/
