@@ -1,0 +1,96 @@
+__author__ = 'kaleab'
+#this purifies the tweets
+import re
+"""
+this is just for one tweet
+f = open("d:/save lives/datasets/'harvest3.csv","rb")
+t = f.readlines()
+
+tweets = []
+
+for item in t:
+    tweets.append(item)
+
+id = re.findall(r"(\d+)",tweets[0])[0]
+timestamp = re.findall(r"(datetime\((.+)\))",tweets[0])[0]
+location = re.findall((r"u\'(.+), d"),tweets[0])
+tweet = re.findall((r"\d+\), (.+), u"),tweets[0])
+
+d = timestamp.split(",")
+year = d[0]
+year = re.findall( r"(\d+)" , d[0])
+ month = d[1]
+day = d[2]
+hour = d[3]
+minute = d[4]
+second = d[5]
+second = re.findall(r"(\d+)",second)
+
+for s in second:
+    second = s # no second is an integer
+
+datetime(int(year),int(month),int(day),int(hour),int(minute),int(second)) # we are finished yo
+"""
+"""
+In[151]: timestamp.split()
+Out[150]: ['datetime(2014,', '11,', '5,', '17,', '12,', '28)']
+In[152]: timestamp.split(",")
+Out[151]: ['datetime(2014', ' 11', ' 5', ' 17', ' 12', ' 28)']
+In[153]: d = timestamp.split(",")
+In[154]: d
+Out[153]: ['datetime(2014', ' 11', ' 5', ' 17', ' 12', ' 28)']
+In[155]: year = re.findall( r"(\d+)" , d[0])
+        month = d[1],day = d[2], hour = d[3],minute = d[4],second=d[5]
+Out[154]: ['2014']
+
+
+ month = d[1]
+In[159]: day = d[2]
+In[160]: hour = d[3]
+In[161]: minute = d[4]
+In[162]: second = d[5]
+In[163]: year = d[0]
+In[164]: year
+Out[163]: 'datetime(2014'
+In[165]: year = re.findall( r"(\d+)" , d[0])
+In[166]: datetime(year,month,day,hour,minute,second)
+Traceback (most recent call last):
+
+In[182]: datetime(int(year),int(month),int(day),int(hour),int(minute),int(second))
+
+In[183]: second
+Out[182]: ' 28)'
+In[184]: second = re.findall(r"(\d+)",second)
+In[185]: second
+Out[184]: ['28']
+In[186]: for s in second:
+...     second = s
+...
+In[187]: s
+Out[186]: '28'
+
+at last write this
+"""
+f = open("d:/save lives/datasets/'harvest.csv","rb")
+t = f.readlines()
+tweets = []
+
+for item in t:
+    tweets.append(item)
+
+for i in range(0,len(tweets)):
+    with open("d:/save lives/tweets_only.txt","a") as file:
+        id = re.findall(r"(\d+)",tweets[i])[0]
+        timestamp = re.findall(r"(datetime\((.+)\))",tweets[i])[0]
+        timestamp = timestamp[0]
+        location = re.findall((r"u\'(.+), d"),tweets[i])
+        tweet = re.findall((r"\d+\), (.+), u"),tweets[i])
+        for loc in location:
+            real_location = loc
+        for twt in tweet:
+            real_tweet = twt
+
+        #file.write(id + "\t" + loc + "\t" + timestamp + "\t" + real_tweet +"\n")
+        file.write(id + "\t" + real_tweet+"\n")
+
+

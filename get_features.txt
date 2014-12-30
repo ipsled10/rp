@@ -1,0 +1,111 @@
+__author__ = 'kaleab'
+#this my friend is to get features
+"""
+from sklearn.feature_extraction.text import CountVectorizer
+
+train_set = ("The sky is blue.", " The sun is bright.")
+test_set = ("The sun in the sky is bright.",
+            "We can see the shining sun, the bright sun.")
+
+vectorizer = CountVectorizer()
+
+v = vectorizer.fit_transform(train_set)
+print v.vocabulary
+"""
+import string
+import csv
+import re
+from nltk import word_tokenize
+from nltk.stem import PorterStemmer
+from nltk.corpus import stopwords
+from sklearn.cluster import KMeans
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.feature_extraction.text import CountVectorizer
+from pprint import pprint
+from nltk.corpus import stopwords
+from nltk.stem.snowball import SnowballStemmer
+from sklearn.cluster import KMeans
+#re.findall(r"(http.+)",test)
+tweets = []
+f = open("D:save lives/tweets_only.csv","rb+")
+reader = csv.reader(f)
+temp_dump = reader
+for row in temp_dump:
+    tweets.append(row[1])
+tweets2 = []
+stemmer = SnowballStemmer("english")
+for tweet in tweets:
+    #useless = re.findall(r"(http.+)",tweet)
+    tweet = re.sub(r"(http.+)","",tweet)#removing links
+    tweet = re.sub(r"[~!@#$$%^&*()_+-=;:,./?\\']\"","",tweet)#removing wirdos
+    tweet = re.sub(r"\\(.+)\\","",tweet)#removing sth
+    tweet1 = ""
+    for single_word in tweet:
+        stemmed = stemmer.stem(single_word)
+        tweet1 = tweet1 + stemmed
+
+    #stop_words = stopwords.words("english")
+    """
+    for t in tweet:
+        if t in stop_words:
+            tweet = tweet.replace(t,"")
+        else:
+            pass
+    """
+    #print tweet
+    #t = "".join(useless)
+    #tweet = tweet.replace(t,"")
+
+    tweets2.append(tweet1)
+    tweet1 = ""
+"""
+for tt in tweets2:
+    print tt
+"""
+
+vectorizer = CountVectorizer(min_df = 2000,stop_words = "english")
+X = vectorizer.fit_transform(tweets2)
+#print len(vectorizer.get_feature_names())#36010 before removing https it was 54,466 so it looks good
+print len(vectorizer.get_feature_names())
+print vectorizer.get_feature_names()
+kmeans = KMeans()
+k = kmeans.fit(X)
+print k
+"""
+tweets = []
+f = open("D:save lives/tweets_only.csv","rb+")
+reader = csv.reader(f)
+temp_dump = reader
+for row in temp_dump:
+    tweets.append(row[1])
+
+"""
+"""
+def process_text(text,stem = True):
+    # Tokenize text and stem words removing punctuation
+    text = text.transulate(string.punctuation)
+    tokens = word_tokenize(text)
+
+    if stem:
+        stemmer = PorterStemmer()
+        tokens = [stemmer.stem(t) for t in tokens]
+
+    return tokens
+
+t = process_text("this is just a test")
+print t
+"""
+"""
+import re
+REGEX = re.compile(r"\s*")
+tokenized_tweets = []
+def tokenize(tweets):
+    return [t.strip().lower() for t in REGEX.split(tweets)]
+    for t in tweets:
+        new_t = [item.strip().lower() for item in REGEX.split(t)]
+        tokenized_tweets.append(new_t)
+
+def cluster_tweets(tweets,clusters = 3):
+    #transform texts to bag-of-words- coordinates and cluster tweets using k-means
+    vectorizer = CountVectorizer(tokenizer)
+"""
